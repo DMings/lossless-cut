@@ -328,7 +328,8 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
       ...flatMap(Object.entries(customTagsByFile[filePath] || []), ([key, value]) => ['-metadata', `${key}=${value}`]),
     ];
 
-    const mapStreamsArgs = getMapStreamsArgs({ copyFileStreams: copyFileStreamsFiltered, allFilesMeta, outFormat, areWeCutting });
+    const mapStreamsArgs:string[] = [];
+    // const mapStreamsArgs = getMapStreamsArgs({ copyFileStreams: copyFileStreamsFiltered, allFilesMeta, outFormat, areWeCutting });
 
     const customParamsArgs = (() => {
       const ret: string[] = [];
@@ -413,7 +414,11 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
     ];
 
     appendFfmpegCommandLog(ffmpegArgs);
-    const result = await runFfmpegWithProgress({ ffmpegArgs, duration: cutDuration, onProgress });
+    const progressCb = (progress: number) => {
+      console.log('111 runFfmpegWithProgress progress', progress);
+      onProgress(progress * 0.5);
+    }
+    const result = await runFfmpegWithProgress({ ffmpegArgs, duration: cutDuration, onProgress: progressCb });
     logStdoutStderr(result);
 
     await transferTimestamps({ inPath: filePath, outPath, cutFrom, cutTo, treatInputFileModifiedTimeAsStart, duration: isDurationValid(fileDuration) ? fileDuration : undefined, treatOutputFileModifiedTimeAsStart });
@@ -624,8 +629,59 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
 
     try {
       const outFiles = await pMap(segments, maybeSmartCutSegment, { concurrency: 1 });
-
-      return outFiles;
+      const outReversePath:string[] = [];
+      if (outFiles.length == 1) {
+        // outFiles
+        const onProgress = (progress: number) => onSingleProgress(0, 0.5 + progress / 2);
+        const progressCb = (progress: number) => {
+          console.log('222 runFfmpegWithProgress progress', progress);
+          onProgress(progress * 0.5);
+        }
+        const frameDuration = getFrameDuration(detectedFps);
+        const cutFrom = segments[0]?.start!;
+        const cutTo = segments[0]?.end!;
+        const cutFromWithAdjustment = cutFrom + cutFromAdjustmentFrames * frameDuration;
+        const cutToWithAdjustment = cutTo + cutToAdjustmentFrames * frameDuration;
+        let cutDuration = cutToWithAdjustment - cutFromWithAdjustment;
+        console.log('222 runFfmpegWithProgress cutDuration',cutDuration, "outSegFileNames[0]", outSegFileNames[0]);
+        async function makeSegmentOutPath() {
+          const fileName = outSegFileNames[0]!;
+          const dotIndex = fileName.lastIndexOf('.');
+          if (dotIndex !== -1) {
+              const name = fileName.substring(0, dotIndex);
+              const extension = fileName.substring(dotIndex + 1);
+              console.log("文件名: ", name);
+              console.log("文件后缀: ", extension);
+              const outPath = join(outputDir, `${name}_reverse.${extension}`);
+              // because outSegFileNames might contain slashes https://github.com/mifi/lossless-cut/issues/1532
+              const actualOutputDir = dirname(outPath);
+              if (actualOutputDir !== outputDir) await mkdir(actualOutputDir, { recursive: true });
+              return outPath;
+          } else {
+              console.log("未找到文件后缀");
+              const outPath = join(outputDir, `temp.mp4`);
+              // because outSegFileNames might contain slashes https://github.com/mifi/lossless-cut/issues/1532
+              const actualOutputDir = dirname(outPath);
+              if (actualOutputDir !== outputDir) await mkdir(actualOutputDir, { recursive: true });
+              return outPath;
+          }
+        }
+        const outPath = await makeSegmentOutPath();
+        const videoArgs:string[] = ['-vf','reverse'];
+        const audioArgs:string[] = ['-af','areverse'];
+        const ffmpegArgs:string[] = [
+          '-hide_banner',
+          '-i', outFiles[0]!,
+          ...videoArgs,
+          ...audioArgs,
+          '-y', outPath,
+        ];
+        console.log('ffmpegArgs', JSON.stringify(ffmpegArgs));
+        const result = await runFfmpegWithProgress({ ffmpegArgs, duration: cutDuration, onProgress: progressCb });
+        logStdoutStderr(result);
+        outReversePath.push(outPath);
+      }
+      return [...outFiles, ...outReversePath];
     } finally {
       if (chaptersPath) await tryDeleteFiles([chaptersPath]);
     }
@@ -716,7 +772,8 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
         break;
       }
       case 'copy': {
-        videoArgs = ['-vcodec', 'copy'];
+        // videoArgs = ['-vcodec', 'copy'];
+        videoArgs = [];
         break;
       }
       default: {
@@ -744,7 +801,8 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
         break;
       }
       case 'copy': {
-        audioArgs = ['-acodec', 'copy'];
+        // audioArgs = ['-acodec', 'copy'];
+        audioArgs= [];
         break;
       }
       default: {
@@ -821,7 +879,7 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
       '-map', '0',
       '-ignore_unknown',
 
-      '-c', 'copy',
+      // '-c', 'copy',
       '-y', outPath,
     ];
 
@@ -897,7 +955,8 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
 
       streamArgs = [
         ...streamArgs,
-        '-map', `0:${index}`, '-c', 'copy', '-f', format, '-y', outPath,
+        '-f', format, '-y', outPath,
+        // '-map', `0:${index}`, '-c', 'copy', '-f', format, '-y', outPath,
       ];
       return outPath;
     }, { concurrency: 1 });

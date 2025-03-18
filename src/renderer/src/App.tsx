@@ -1036,7 +1036,7 @@ function App() {
 
   const closeExportConfirm = useCallback(() => setExportConfirmVisible(false), []);
 
-  const willMerge = segmentsToExport.length > 1 && autoMerge;
+  let willMerge = segmentsToExport.length > 1 && autoMerge;
 
   const onExportConfirm = useCallback(async () => {
     invariant(filePath != null);
@@ -1109,6 +1109,7 @@ function App() {
 
       let mergedOutFilePath: string | undefined;
 
+      willMerge = willMerge || outFiles.length > 1;
       if (willMerge) {
         console.log('mergedFileTemplateOrDefault', mergedFileTemplateOrDefault);
 
@@ -1140,6 +1141,10 @@ function App() {
           preserveMetadataOnMerge,
           mergedOutFilePath,
         });
+
+        const abortController = new AbortController();
+        const pathsToDelete: string[] = [...outFiles];
+        await deleteFiles({ paths: pathsToDelete, deleteIfTrashFails: false, signal: abortController.signal });
       }
 
       if (!enableOverwriteOutput) warnings.push(i18n.t('Overwrite output setting is disabled and some files might have been skipped.'));
