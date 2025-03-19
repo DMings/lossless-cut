@@ -743,9 +743,9 @@ export async function openExportFinishedToast({ filePath, warnings, notices }: {
   const html = (
     <UnorderedList>
       <ListItem icon={TickCircleIcon} iconColor={hasWarnings ? 'var(--orange8)' : 'var(--green11)'} style={{ fontWeight: 'bold' }}>{hasWarnings ? i18n.t('Export finished with warning(s)', { count: warnings.length }) : i18n.t('Export is done!')}</ListItem>
-      <ListItem icon={InfoSignIcon}>{i18n.t('Please test the output file in your desired player/editor before you delete the source file.')}</ListItem>
+      {/* <ListItem icon={InfoSignIcon}>{i18n.t('Please test the output file in your desired player/editor before you delete the source file.')}</ListItem>
       <OutputIncorrectSeeHelpMenu />
-      <Notices notices={notices} />
+      <Notices notices={notices} /> */}
       <Warnings warnings={warnings} />
     </UnorderedList>
   );

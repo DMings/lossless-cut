@@ -120,7 +120,7 @@ function TopMenu({
         {customOutDir ? t('Working dir set') : t('Working dir unset')}
       </Button>
 
-      {filePath && (
+      {/* {filePath && (
         <>
           {renderOutFmt(outFmtStyle)}
 
@@ -128,9 +128,9 @@ function TopMenu({
 
           <ExportModeButton selectedSegments={selectedSegments} style={exportModeStyle} />
         </>
-      )}
+      )} */}
 
-      <IoIosSettings size={24} role="button" onClick={toggleSettings} style={{ marginLeft: 5 }} />
+      {/* <IoIosSettings size={24} role="button" onClick={toggleSettings} style={{ marginLeft: 5 }} /> */}
     </div>
   );
 }

@@ -37,7 +37,7 @@ const mapLang = (lng: string) => ({
   'ru-RU': 'ru',
 }[lng] || lng);
 
-export const fallbackLng = 'en';
+export const fallbackLng = 'zh_Hans';
 
 export const commonI18nOptions: InitOptions = {
   fallbackLng,

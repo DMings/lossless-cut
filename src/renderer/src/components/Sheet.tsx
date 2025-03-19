@@ -20,8 +20,10 @@ function Sheet({ visible, onClosePress, children, maxWidth = 800, style }: {
           exit={{ scale: 0, opacity: 0 }}
           className={styles['sheet']}
         >
-          <div style={{ margin: 'auto', maxWidth, height: '100%', position: 'relative' }}>
-            <div style={{ overflowY: 'scroll', height: '100%', ...style }}>
+          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+          {/* <div style={{ margin: 'auto', maxWidth, height: '100%', position: 'relative' }}> */}
+            <div style={{ width: '100%', height: '100%', ...style }}>
+            {/* <div style={{ overflowY: 'scroll', height: '100%', ...style }}> */}
               {children}
             </div>
 

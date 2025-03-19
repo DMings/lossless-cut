@@ -121,7 +121,7 @@ const defaults: Config = {
   hideOsNotifications: undefined,
   autoLoadTimecode: false,
   segmentsToChapters: false,
-  simpleMode: true,
+  simpleMode: false,
   outSegTemplate: undefined,
   mergedFileTemplate: undefined,
   keyboardSeekAccFactor: 1.03,

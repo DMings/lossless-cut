@@ -1,6 +1,6 @@
 {
   "name": "lossless-cut",
-  "productName": "LosslessCut",
+  "productName": "A剪",
   "description": "The swiss army knife of lossless video/audio editing",
   "copyright": "Copyright © 2021 ${author}",
   "version": "3.64.0",
@@ -29,13 +29,13 @@
     "generate-licenses": "yarn licenses generate-disclaimer > licenses.txt && echo '\n\nffmpeg is licensed under GPL v2+:\n\nhttp://www.gnu.org/licenses/old-licenses/gpl-2.0.html' >> licenses.txt"
   },
   "author": {
-    "name": "Mikael Finstad",
-    "email": "finstaden@gmail.com",
-    "url": "https://mifi.no/losslesscut/"
+    "name": "",
+    "email": "",
+    "url": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mifi/lossless-cut.git"
+    "url": ""
   },
   "license": "GPL-2.0-only",
   "devDependencies": {
@@ -416,7 +416,7 @@
       ]
     },
     "appx": {
-      "applicationId": "LosslessCut",
+      "applicationId": "ACut",
       "identityName": "57275mifi.no.LosslessCut",
       "publisher": "CN=2C479316-22A8-4D63-BC38-F0FB9AB0B974",
       "publisherDisplayName": "mifi.no"

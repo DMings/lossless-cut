@@ -152,7 +152,7 @@ function App() {
   const [waveformMode, setWaveformMode] = useState<WaveformMode>();
   const [thumbnailsEnabled, setThumbnailsEnabled] = useState(false);
   const [keyframesEnabled, setKeyframesEnabled] = useState(true);
-  const [showRightBar, setShowRightBar] = useState(true);
+  const [showRightBar, setShowRightBar] = useState(false);
   const [rememberConvertToSupportedFormat, setRememberConvertToSupportedFormat] = useState<Html5ifyMode>();
   const [lastCommandsVisible, setLastCommandsVisible] = useState(false);
   const [settingsVisible, setSettingsVisible] = useState(false);
@@ -260,7 +260,8 @@ function App() {
   }, []);
   const appendFfmpegCommandLog = useCallback((args: string[]) => appendLastCommandsLog(getFfCommandLine('ffmpeg', args)), [appendLastCommandsLog]);
 
-  const toggleSegmentsList = useCallback(() => setShowRightBar((v) => !v), []);
+  const toggleSegmentsList = useCallback(() => {}, []);
+  // const toggleSegmentsList = useCallback(() => setShowRightBar((v) => !v), []);
 
   const toggleWaveformMode = useCallback(() => {
     // eslint-disable-next-line unicorn/prefer-switch
@@ -1217,12 +1218,13 @@ function App() {
   const onExportPress = useCallback(async () => {
     if (!filePath) return;
 
-    if (!exportConfirmEnabled || exportConfirmVisible) {
-      await onExportConfirm();
-    } else {
-      setExportConfirmVisible(true);
-      setStreamsSelectorShown(false);
-    }
+    await onExportConfirm();
+    // if (!exportConfirmEnabled || exportConfirmVisible) {
+    //   await onExportConfirm();
+    // } else {
+    //   setExportConfirmVisible(true);
+    //   setStreamsSelectorShown(false);
+    // }
   }, [filePath, exportConfirmEnabled, exportConfirmVisible, onExportConfirm]);
 
   const captureSnapshot = useCallback(async () => {
@@ -1484,7 +1486,8 @@ function App() {
   }, [storeProjectInWorkingDir, setWorking, loadEdlFile, getEdlFilePath, enableAskForImportChapters, ensureAccessToSourceDir, loadCutSegments, autoLoadTimecode, enableNativeHevc, ensureWritableOutDir, customOutDir, resetState, clearSegColorCounter, setCopyStreamIdsForPath, setDetectedFileFormat, outFormatLocked, html5ifyAndLoadWithPreferences, setFileFormat, showNotification, showPreviewFileLoadedMessage, showUnsupportedFileMessage]);
 
   const toggleLastCommands = useCallback(() => setLastCommandsVisible((val) => !val), []);
-  const toggleSettings = useCallback(() => setSettingsVisible((val) => !val), []);
+  const toggleSettings = useCallback(() => {}, []);
+  // const toggleSettings = useCallback(() => setSettingsVisible((val) => !val), []);
 
   const seekClosestKeyframe = useCallback((direction: number) => {
     const time = findNearestKeyFrameTime({ time: getRelevantTime(), direction });
@@ -1841,7 +1844,8 @@ function App() {
         else if (isFileOpened) inputOptions.mergeWithCurrentFile = i18n.t('Merge/concatenate with current file');
 
         if (Object.keys(inputOptions).length > 1) {
-          const openFileResponse = enableAskForFileOpenAction ? await askForFileOpenAction(inputOptions) : 'open';
+          const openFileResponse = 'open';
+          // const openFileResponse = enableAskForFileOpenAction ? await askForFileOpenAction(inputOptions) : 'open';
 
           if (openFileResponse === 'open') {
             await userOpenSingleFile({ path: firstFilePath, isLlcProject });
@@ -2433,7 +2437,8 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeydown);
   }, [haveBoundAlt]);
 
-  const showLeftBar = batchFiles.length > 0;
+  const showLeftBar = false;
+  // const showLeftBar = batchFiles.length > 0;
 
   function renderSubtitles() {
     if (!activeSubtitle) return null;
@@ -2542,7 +2547,7 @@ function App() {
                         <PlaybackStreamSelector subtitleStreams={subtitleStreams} videoStreams={videoStreams} audioStreams={audioStreams} activeSubtitleStreamIndex={activeSubtitleStreamIndex} activeVideoStreamIndex={activeVideoStreamIndex} activeAudioStreamIndexes={activeAudioStreamIndexes} onActiveSubtitleChange={onActiveSubtitleChange} onActiveVideoStreamChange={onActiveVideoStreamChange} onActiveAudioStreamsChange={onActiveAudioStreamsChange} />
                       )}
 
-                      {!showRightBar && (
+                      {/* {!showRightBar && (
                         <FaAngleLeft
                           title={t('Show sidebar')}
                           size={30}
@@ -2550,7 +2555,7 @@ function App() {
                           style={{ marginRight: 10, color: 'var(--gray12)', opacity: 0.7 }}
                           onClick={toggleSegmentsList}
                         />
-                      )}
+                      )} */}
                     </div>
                   )}
                 </div>

@@ -429,14 +429,14 @@ export async function extractSubtitleTrackVtt(filePath: string, streamId: number
   return URL.createObjectURL(blob);
 }
 
-export async function renderThumbnails({ filePath, from, duration, onThumbnail, signal }: {
+export async function renderThumbnails({ filePath, from, duration, onThumbnail, signal, numThumbs }: {
   filePath: string,
   from: number,
   duration: number,
   onThumbnail: (a: { time: number, url: string }) => void,
   signal: AbortSignal,
+  numThumbs: number,
 }) {
-  const numThumbs = 10;
   const thumbTimes = Array.from({ length: numThumbs }).fill(undefined).map((_unused, i) => (from + ((duration * i) / numThumbs)));
   // console.log(thumbTimes);
 

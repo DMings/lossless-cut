@@ -292,7 +292,7 @@ function BottomBar({
       background: `linear-gradient(90deg, ${gradientColors})`,
       border: '1px solid var(--gray8)',
       color: 'white',
-      margin: '0px 5px 0 0px',
+      margin: '0px 15px 0 15px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -375,13 +375,13 @@ function BottomBar({
                     onClick={toggleShowThumbnails}
                   />
 
-                  <FaKey
+                  {/* <FaKey
                     size={16}
                     style={{ padding: '0 .2em', color: keyframesEnabled ? primaryTextColor : undefined }}
                     role="button"
                     title={t('Show keyframes')}
                     onClick={toggleShowKeyframes}
-                  />
+                  /> */}
                 </>
               )}
             </>
@@ -482,13 +482,13 @@ function BottomBar({
         className="no-user-select"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '3px 4px' }}
       >
-        <SimpleModeButton style={{ flexShrink: 0 }} />
+        {/* <SimpleModeButton style={{ flexShrink: 0 }} /> */}
 
-        {simpleMode && <div role="button" onClick={toggleSimpleMode} style={{ marginLeft: 5, fontSize: '90%' }}>{t('Toggle advanced view')}</div>}
+        {/* {simpleMode && <div role="button" onClick={toggleSimpleMode} style={{ marginLeft: 5, fontSize: '90%' }}>{t('Toggle advanced view')}</div>} */}
 
         {!simpleMode && (
           <>
-            <InvertCutModeButton invertCutSegments={invertCutSegments} setInvertCutSegments={setInvertCutSegments} />
+            {/* <InvertCutModeButton invertCutSegments={invertCutSegments} setInvertCutSegments={setInvertCutSegments} /> */}
 
             <div role="button" style={{ marginRight: 5, marginLeft: 10 }} title={t('Zoom')} onClick={timelineToggleComfortZoom}>{Math.floor(zoom)}x</div>
 
@@ -524,7 +524,7 @@ function BottomBar({
           </>
         )}
 
-        {!simpleMode && isFileOpened && (
+        {/* {!simpleMode && isFileOpened && (
           <FaTrashAlt
             title={t('Close file and clean up')}
             style={{ padding: '5px 10px' }}
@@ -532,9 +532,9 @@ function BottomBar({
             onClick={cleanupFilesDialog}
             role="button"
           />
-        )}
+        )} */}
 
-        {hasVideo && (
+        {/* {hasVideo && (
           <>
             {!simpleMode && <CaptureFormatButton style={{ width: '3.7em', textAlign: 'center' }} />}
 
@@ -545,7 +545,7 @@ function BottomBar({
               onClick={captureSnapshot}
             />
           </>
-        )}
+        )} */}
 
         <div role="button" onClick={toggleLoopSelectedSegments} title={t('Play selected segments in order')} style={loopSelectedSegmentsButtonStyle}>
           <FaPlay
@@ -553,7 +553,7 @@ function BottomBar({
           />
         </div>
 
-        {(!simpleMode || !exportConfirmEnabled) && <ToggleExportConfirm style={{ marginRight: 5 }} />}
+        {/* {(!simpleMode || !exportConfirmEnabled) && <ToggleExportConfirm style={{ marginRight: 5 }} />} */}
 
         <ExportButton size={1.3} segmentsToExport={segmentsToExport} areWeCutting={areWeCutting} onClick={onExportPress} />
       </div>

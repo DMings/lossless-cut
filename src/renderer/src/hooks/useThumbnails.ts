@@ -38,7 +38,7 @@ export default ({ filePath, zoomedDuration, zoomWindowStartTime, showThumbnails 
           setThumbnails((v) => [...v, t]);
         };
 
-        await ffmpegRenderThumbnails({ signal: abortController.signal, filePath: debounced.filePath, from: debounced.zoomWindowStartTime, duration: debounced.zoomedDuration, onThumbnail: addThumbnail });
+        await ffmpegRenderThumbnails({ signal: abortController.signal, filePath: debounced.filePath, from: debounced.zoomWindowStartTime, duration: debounced.zoomedDuration, onThumbnail: addThumbnail, numThumbs: 40 });
       } catch (err) {
         if ((err as Error).name !== 'AbortError' && !(isExecaError(err) && err.isCanceled)) {
           console.error('Failed to render thumbnails', err);

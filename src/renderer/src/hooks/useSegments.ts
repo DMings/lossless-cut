@@ -480,7 +480,11 @@ function useSegments({ filePath, workingRef, setWorking, setProgress, videoStrea
     // If current time is after the end of the current segment in the timeline, or there is no segment,
     // conveniently add a new segment that starts at playerTime
     if (currentCutSeg == null || (currentCutSeg.end != null && relevantTime >= currentCutSeg.end)) {
-      addSegment();
+      if (currentCutSeg && currentCutSeg.end != null && (relevantTime >= currentCutSeg.end)) {
+        errorToast("结束点需要比开始点要大！");
+      } else {
+        addSegment();
+      }
     } else {
       try {
         const startTime = relevantTime;

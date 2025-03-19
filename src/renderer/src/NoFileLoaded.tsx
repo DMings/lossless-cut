@@ -39,12 +39,12 @@ function NoFileLoaded({ mifiLink, currentCutSeg, onClick, darkMode, keyBindingBy
     >
       <div style={{ fontSize: '2em', textTransform: 'uppercase', color: 'var(--gray11)', marginBottom: '.2em' }}>{t('DROP FILE(S)')}</div>
 
-      <div style={{ fontSize: '1.3em', color: 'var(--gray11)', marginBottom: '.1em' }}>
+      {/* <div style={{ fontSize: '1.3em', color: 'var(--gray11)', marginBottom: '.1em' }}>
         <Trans>See <b>Help</b> menu for help</Trans>
-      </div>
+      </div> */}
 
       <div style={{ fontSize: '1.3em', color: 'var(--gray11)' }}>
-        <Trans><SetCutpointButton currentCutSeg={currentCutSegOrDefault} side="start" style={{ verticalAlign: 'middle' }} /> <SetCutpointButton currentCutSeg={currentCutSegOrDefault} side="end" style={{ verticalAlign: 'middle' }} /> or <Keys keys={keyBindingByAction.setCutStart.keys} /> <Keys keys={keyBindingByAction.setCutEnd.keys} /> to set cutpoints</Trans>
+        <Trans><SetCutpointButton currentCutSeg={currentCutSegOrDefault} side="start" style={{ verticalAlign: 'middle' }} /> <SetCutpointButton currentCutSeg={currentCutSegOrDefault} side="end" style={{ verticalAlign: 'middle' }} /> 或者 <Keys keys={keyBindingByAction.setCutStart.keys} /> <Keys keys={keyBindingByAction.setCutEnd.keys} /> 设置裁剪点</Trans>
       </div>
 
       <div style={{ fontSize: '1.3em', color: 'var(--gray11)' }} role="button" onClick={(e) => e.stopPropagation()}>
@@ -55,13 +55,12 @@ function NoFileLoaded({ mifiLink, currentCutSeg, onClick, darkMode, keyBindingBy
         )}
       </div>
 
-      {mifiLink && typeof mifiLink === 'object' && 'loadUrl' in mifiLink && typeof mifiLink.loadUrl === 'string' && mifiLink.loadUrl ? (
+      {/* {mifiLink && typeof mifiLink === 'object' && 'loadUrl' in mifiLink && typeof mifiLink.loadUrl === 'string' && mifiLink.loadUrl ? (
         <div style={{ position: 'relative', margin: '.3em', width: '24em', height: '8em' }}>
           <iframe src={`${mifiLink.loadUrl}#dark=${darkMode ? 'true' : 'false'}`} title="iframe" style={{ background: 'rgba(0,0,0,0)', border: 'none', pointerEvents: 'none', width: '100%', height: '100%', position: 'absolute', colorScheme: 'initial' }} />
-          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div style={{ width: '100%', height: '100%', position: 'absolute', cursor: 'pointer' }} role="button" onClick={(e) => { e.stopPropagation(); if ('targetUrl' in mifiLink && typeof mifiLink.targetUrl === 'string') electron.shell.openExternal(mifiLink.targetUrl); }} />
         </div>
-      ) : undefined}
+      ) : undefined} */}
     </div>
   );
 }
