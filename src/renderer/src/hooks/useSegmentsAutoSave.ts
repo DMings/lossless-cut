@@ -49,7 +49,7 @@ export default ({ autoSaveProjectFile, storeProjectInWorkingDir, filePath, custo
           return;
         }
 
-        await saveLlcProject({ savePath: debouncedSaveOperation.projectFileSavePath, filePath: debouncedSaveOperation.filePath, cutSegments: debouncedSaveOperation.cutSegments });
+        // await saveLlcProject({ savePath: debouncedSaveOperation.projectFileSavePath, filePath: debouncedSaveOperation.filePath, cutSegments: debouncedSaveOperation.cutSegments });
         lastSaveOperation.current = debouncedSaveOperation;
       } catch (err) {
         errorToast(i18n.t('Unable to save project file'));

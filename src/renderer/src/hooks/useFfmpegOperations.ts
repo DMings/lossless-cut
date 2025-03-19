@@ -668,12 +668,12 @@ function useFfmpegOperations({ filePath, treatInputFileModifiedTimeAsStart, trea
         }
         const outPath = await makeSegmentOutPath();
         const videoArgs:string[] = ['-vf','reverse'];
-        const audioArgs:string[] = ['-af','areverse'];
+        // const audioArgs:string[] = ['-af','areverse'];
         const ffmpegArgs:string[] = [
           '-hide_banner',
           '-i', outFiles[0]!,
           ...videoArgs,
-          ...audioArgs,
+          // ...audioArgs,
           '-y', outPath,
         ];
         console.log('ffmpegArgs', JSON.stringify(ffmpegArgs));

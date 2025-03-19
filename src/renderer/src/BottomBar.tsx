@@ -410,13 +410,13 @@ function BottomBar({
 
         {!simpleMode && <CutTimeInput darkMode={darkMode} currentCutSeg={currentCutSeg} startTimeOffset={startTimeOffset} seekAbs={seekAbs} cutTime={currentCutSeg?.start} setCutTime={setCutTime} isStart formatTimecode={formatTimecode} parseTimecode={parseTimecode} />}
 
-        <IoMdKey
+        {/* <IoMdKey
           size={25}
           role="button"
           title={t('Seek previous keyframe')}
           style={{ flexShrink: 0, marginRight: 2, transform: mirrorTransform }}
           onClick={() => seekClosestKeyframe(-1)}
-        />
+        /> */}
 
         {!simpleMode && (
           <FaCaretLeft
@@ -445,13 +445,13 @@ function BottomBar({
           />
         )}
 
-        <IoMdKey
+        {/* <IoMdKey
           style={{ flexShrink: 0, marginLeft: 2 }}
           size={25}
           role="button"
           title={t('Seek next keyframe')}
           onClick={() => seekClosestKeyframe(1)}
-        />
+        /> */}
 
         {!simpleMode && <CutTimeInput darkMode={darkMode} currentCutSeg={currentCutSeg} startTimeOffset={startTimeOffset} seekAbs={seekAbs} cutTime={currentCutSeg?.end} setCutTime={setCutTime} formatTimecode={formatTimecode} parseTimecode={parseTimecode} />}
 

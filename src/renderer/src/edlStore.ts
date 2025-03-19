@@ -217,6 +217,6 @@ export async function exportEdlFile({ type, cutSegments, customOutDir, filePath,
   else if (type === 'tsv-human') await saveTsv(savePath, cutSegments);
   else if (type === 'csv-human') await saveCsvHuman(savePath, cutSegments);
   else if (type === 'csv-frames') await saveCsvFrames({ path: savePath, cutSegments, getFrameCount });
-  else if (type === 'llc') await saveLlcProject({ savePath, filePath, cutSegments });
+  // else if (type === 'llc') await saveLlcProject({ savePath, filePath, cutSegments });
   else if (type === 'srt') await saveSrt(savePath, cutSegments);
 }

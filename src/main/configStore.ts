@@ -106,7 +106,7 @@ const defaults: Config = {
   enableAskForImportChapters: true,
   enableAskForFileOpenAction: true,
   playbackVolume: 1,
-  autoSaveProjectFile: true,
+  autoSaveProjectFile: false,
   wheelSensitivity: 0.2,
   waveformHeight: 40,
   language: undefined,

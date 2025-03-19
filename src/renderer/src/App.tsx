@@ -151,7 +151,7 @@ function App() {
   const lastOpenedPathRef = useRef<string>();
   const [waveformMode, setWaveformMode] = useState<WaveformMode>();
   const [thumbnailsEnabled, setThumbnailsEnabled] = useState(false);
-  const [keyframesEnabled, setKeyframesEnabled] = useState(true);
+  const [keyframesEnabled, setKeyframesEnabled] = useState(false);
   const [showRightBar, setShowRightBar] = useState(false);
   const [rememberConvertToSupportedFormat, setRememberConvertToSupportedFormat] = useState<Html5ifyMode>();
   const [lastCommandsVisible, setLastCommandsVisible] = useState(false);
@@ -266,8 +266,8 @@ function App() {
   const toggleWaveformMode = useCallback(() => {
     // eslint-disable-next-line unicorn/prefer-switch
     if (waveformMode === 'waveform') {
-      setWaveformMode('big-waveform');
-    } else if (waveformMode === 'big-waveform') {
+      // setWaveformMode('big-waveform');
+    // } else if (waveformMode === 'big-waveform') {
       setWaveformMode(undefined);
     } else {
       showNotification({ text: i18n.t('Mini-waveform has been enabled. Click again to enable full-screen waveform') });
@@ -2543,9 +2543,9 @@ function App() {
                     <div className="no-user-select" style={{ position: 'absolute', right: 0, bottom: 0, marginBottom: 10, display: 'flex', alignItems: 'flex-end' }}>
                       <VolumeControl playbackVolume={playbackVolume} setPlaybackVolume={setPlaybackVolume} onToggleMutedClick={toggleMuted} />
 
-                      {shouldShowPlaybackStreamSelector && (
+                      {/* {shouldShowPlaybackStreamSelector && (
                         <PlaybackStreamSelector subtitleStreams={subtitleStreams} videoStreams={videoStreams} audioStreams={audioStreams} activeSubtitleStreamIndex={activeSubtitleStreamIndex} activeVideoStreamIndex={activeVideoStreamIndex} activeAudioStreamIndexes={activeAudioStreamIndexes} onActiveSubtitleChange={onActiveSubtitleChange} onActiveVideoStreamChange={onActiveVideoStreamChange} onActiveAudioStreamsChange={onActiveAudioStreamsChange} />
-                      )}
+                      )} */}
 
                       {/* {!showRightBar && (
                         <FaAngleLeft
